@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marcos Roberto - Portfólio Hotelaria</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
@@ -51,8 +52,7 @@
             border: 5px solid white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             object-fit: cover; 
-            /* AJUSTE FINAL: O valor negativo move a imagem para cima, 
-               fazendo sua cabeça descer e enquadrar no círculo. */
+            /* AJUSTE FINAL: O valor negativo move a imagem para cima */
             object-position: center -05px; 
         }
         
@@ -190,11 +190,21 @@
             border-left: 4px solid #667eea;
         }
 
-        .photo-gallery {
+        /* CONFIGURAÇÃO DA GALERIA NO PC (3 COLUNAS) */
+        .gallery { /* Usando sua classe .gallery */
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
+        }
+
+        /* REGRAS PARA AS IMAGENS DA GALERIA */
+        .gallery-img {
+            width: 100%;             /* Ocupa 100% da largura do espaço de grid */
+            height: 260px;           /* Altura padrão para visualização elegante */
+            object-fit: cover;       /* CRUCIAL: Mantém a proporção e preenche a caixa */
+            border-radius: 10px; 
+            display: block;
         }
 
         .photo-placeholder-gallery {
@@ -222,6 +232,7 @@
             margin-top: 30px;
         }
 
+        /* RESPONSIVIDADE PARA CELULARES (CORREÇÃO FINAL DA LARGURA) */
         @media (max-width: 768px) {
             .profile-header {
                 flex-direction: column;
@@ -239,6 +250,16 @@
             
             .subtitle {
                 font-size: 1.2em;
+            }
+
+            /* CORREÇÃO CHAVE: Força a galeria a ter APENAS 1 COLUNA no celular */
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            /* A altura deve ser mantida ou ajustada para visualização móvel */
+            .gallery-img {
+                 height: 200px; /* Reduz a altura fixa para celular */
             }
         }
     </style>
@@ -351,15 +372,14 @@
         </section>
 
         <section id="galeria">
-    <h2>Galeria de Trabalho</h2>
-    <div class="gallery">
-    <img src="imagens/hotel_cabreuva.jpg" alt="Hotel Cabreúva Resort" class="gallery-img">
-
-    <img src="imagens/heineken_equipe.jpg" alt="Ambiente de Restaurante" class="gallery-img">
-
-    <img src="imagens/eu_heineken.jpg" alt="Eu na Heineken" class="gallery-img">
-</div>
-
+            <h2>Galeria de Trabalho</h2>
+            <div class="gallery">
+                <img src="imagens/hotel_cabreuva.jpg" alt="Hotel Cabreúva Resort" class="gallery-img">
+                
+                <img src="imagens/heineken_equipe.jpg" alt="Ambiente de Restaurante" class="gallery-img">
+                
+                <img src="imagens/eu_heineken.jpg" alt="Eu na Heineken" class="gallery-img">
+            </div>
         </section>
 
         <section id="formacao">
@@ -408,6 +428,7 @@
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                ';
                 }
             });
         }, observerOptions);
