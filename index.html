@@ -26,6 +26,31 @@
             padding: 20px;
         }
 
+        /* --- SELETOR DE IDIOMAS --- */
+        .lang-selector {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
         header {
             background: white;
             border-radius: 15px;
@@ -43,7 +68,6 @@
             flex-wrap: wrap;
         }
 
-        /* AJUSTE CORRIGIDO E DEFINITIVO PARA A IMAGEM DE PERFIL */
         .photo-placeholder {
             width: 200px;
             height: 200px;
@@ -52,7 +76,6 @@
             border: 5px solid white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             object-fit: cover; 
-            /* AJUSTE FINAL: O valor negativo move a imagem para cima */
             object-position: center -05px; 
         }
         
@@ -101,17 +124,9 @@
             gap: 8px;
         }
 
-        .btn-whatsapp {
-            background: #25D366;
-        }
-
-        .btn-linkedin {
-            background: #0077B5;
-        }
-
-        .btn-facebook {
-            background: #4267B2;
-        }
+        .btn-whatsapp { background: #25D366; }
+        .btn-linkedin { background: #0077B5; }
+        .btn-facebook { background: #4267B2; }
 
         .btn:hover {
             transform: translateY(-2px);
@@ -190,39 +205,19 @@
             border-left: 4px solid #667eea;
         }
 
-        /* CONFIGURAÇÃO DA GALERIA NO PC (3 COLUNAS) */
-        .gallery { /* Usando sua classe .gallery */
+        .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
 
-        /* REGRAS PARA AS IMAGENS DA GALERIA */
         .gallery-img {
-            width: 100%;             /* Ocupa 100% da largura do espaço de grid */
-            height: 260px;           /* Altura padrão para visualização elegante */
-            object-fit: cover;       /* CRUCIAL: Mantém a proporção e preenche a caixa */
+            width: 100%;             
+            height: 260px;           
+            object-fit: cover;       
             border-radius: 10px; 
             display: block;
-        }
-
-        .photo-placeholder-gallery {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            height: 200px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .photo-placeholder-gallery:hover {
-            transform: scale(1.05);
         }
 
         footer {
@@ -232,7 +227,6 @@
             margin-top: 30px;
         }
 
-        /* RESPONSIVIDADE PARA CELULARES (CORREÇÃO FINAL DA LARGURA) */
         @media (max-width: 768px) {
             .profile-header {
                 flex-direction: column;
@@ -244,40 +238,37 @@
                 height: 150px;
             }
             
-            h1 {
-                font-size: 2em;
-            }
-            
-            .subtitle {
-                font-size: 1.2em;
-            }
+            h1 { font-size: 2em; }
+            .subtitle { font-size: 1.2em; }
 
-            /* CORREÇÃO CHAVE: Força a galeria a ter APENAS 1 COLUNA no celular */
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-
-            /* A altura deve ser mantida ou ajustada para visualização móvel */
-            .gallery-img {
-                 height: 200px; /* Reduz a altura fixa para celular */
-            }
+            .gallery { grid-template-columns: 1fr; }
+            .gallery-img { height: 200px; }
+            .lang-selector { justify-content: center; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        
+        <!-- SELETOR DE IDIOMAS -->
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="changeLang('pt')">PT</button>
+            <button class="lang-btn" onclick="changeLang('en')">EN</button>
+            <button class="lang-btn" onclick="changeLang('es')">ES</button>
+        </div>
+
         <header>
             <div class="profile-header">
-                <img src="imagens/foto_perfil.jpg" alt="Marcos Roberto - Foto de Perfil" class="photo-placeholder">
+                <img src="imagens/foto_perfil.jpg" alt="Marcos Roberto" class="photo-placeholder">
                 
                 <div class="header-text">
                     <h1>MARCOS ROBERTO DA SILVA</h1>
-                    <div class="subtitle">Profissional em Hotelaria & Serviço de Restaurante</div>
+                    <div class="subtitle" data-translate="subtitle">Profissional em Hotelaria & Serviço de Restaurante</div>
                     
                     <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> (11) 91569-6867</p>
+                        <p><i class="fas fa-phone"></i> +55 11 91569 6867</p>
                         <p><i class="fas fa-envelope"></i> markriqueza@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> São Paulo, Brasil</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span data-translate="location">São Paulo, Brasil</span></p>
                     </div>
 
                     <div class="social-buttons">
@@ -296,144 +287,289 @@
         </header>
 
         <section id="sobre">
-            <h2>Sobre Mim</h2>
-            <p>Profissional com vasta experiência em hotelaria, restaurantes e serviços de alimentação, incluindo passagem internacional pela Royal Caribbean. Destaque para o atendimento ao cliente de excelência, com habilidade para identificar necessidades e superar expectativas.</p>
-            <p>Inglês intermeadiário/avançado com competência para atuar em ambientes multiculturais e de alto padrão. Comprometido com a organização, higiene e a criação de experiências memoráveis para hóspedes e clientes.</p>
+            <h2 data-translate="about_title">Sobre Mim</h2>
+            <p data-translate="about_p1">Profissional com vasta experiência em hotelaria, restaurantes e serviços de alimentação, incluindo passagem internacional pela Royal Caribbean. Destaque para o atendimento ao cliente de excelência, com habilidade para identificar necessidades e superar expectativas.</p>
+            <p data-translate="about_p2">Inglês intermediário/avançado com competência para atuar em ambientes multiculturais e de alto padrão. Comprometido com a organização, higiene e a criação de experiências memoráveis para hóspedes e clientes.</p>
         </section>
 
         <section id="experiencia">
-            <h2>Experiência Profissional</h2>
+            <h2 data-translate="exp_title">Experiência Profissional</h2>
             
             <div class="experience-item">
                 <h3 class="company">Hotel Cabreúva Resort</h3>
-                <p class="date">Setembro 2016 - Presente (Freelancer)</p>
-                <p><strong>Cargo:</strong> Garçom de Eventos e ajudante de cozinha</p>
+                <p class="date" data-translate="job1_date">Setembro 2016 - Presente (Freelancer)</p>
+                <p><strong data-translate="role_label">Cargo:</strong> <span data-translate="job1_role">Garçom de Eventos e ajudante de cozinha</span></p>
                 <ul>
-                    <li>Atendimento especializado em eventos corporativos, buffets e confraternizações</li>
-                    <li>Identificação das preferências dos hóspedes para serviço personalizado</li>
-                    <li>Apresentação de cardápios de alimentos e bebidas</li>
+                    <li data-translate="job1_duty1">Atendimento especializado em eventos corporativos, buffets e confraternizações</li>
+                    <li data-translate="job1_duty2">Identificação das preferências dos hóspedes para serviço personalizado</li>
+                    <li data-translate="job1_duty3">Apresentação de cardápios de alimentos e bebidas</li>
                 </ul>
             </div>
 
             <div class="experience-item">
                 <h3 class="company">Great Food - Living Heineken (Aeroporto de Guarulhos)</h3>
-                <p class="date">Novembro 2014 - Abril 2016</p>
-                <p><strong>Cargo:</strong> Garçom e Host Bilíngue</p>
+                <p class="date" data-translate="job2_date">Novembro 2014 - Abril 2016</p>
+                <p><strong data-translate="role_label">Cargo:</strong> <span data-translate="job2_role">Garçom e Host Bilíngue</span></p>
                 <ul>
-                    <li>Preparação da casa para abertura e higienização de utensílios</li>
-                    <li>Lançamento de pedidos no sistema e conferência com cozinha/bar</li>
-                    <li><span class="highlight">Como Host Bilíngue: elevação de 100% no faturamento</span> da empresa</li>
+                    <li data-translate="job2_duty1">Preparação da casa para abertura e higienização de utensílios</li>
+                    <li data-translate="job2_duty2">Lançamento de pedidos no sistema e conferência com cozinha/bar</li>
+                    <li><span class="highlight" data-translate="job2_duty3">Como Host Bilíngue: elevação de 100% no faturamento</span> <span data-translate="job2_duty3b">da empresa</span></li>
                 </ul>
             </div>
 
             <div class="experience-item">
                 <h3 class="company">Royal Caribbean Cruises Lines</h3>
-                <p class="date">Fevereiro 2008 - Outubro 2008</p>
-                <p><strong>Cargo:</strong> Mess Attendant (Comissário de Mesa)</p>
+                <p class="date" data-translate="job3_date">Fevereiro 2008 - Outubro 2008</p>
+                <p><strong data-translate="role_label">Cargo:</strong> <span data-translate="job3_role">Mess Attendant (Comissário de Mesa)</span></p>
                 <ul>
-                    <li>Organização e preparo do salão do restaurante (Mise en Place)</li>
-                    <li>Atendimento a hóspedes internacionais em ambiente multicultural</li>
-                    <li>Garantia da satisfação total dos passageiros</li>
+                    <li data-translate="job3_duty1">Organização e preparo do salão do restaurante (Mise en Place)</li>
+                    <li data-translate="job3_duty2">Atendimento a hóspedes internacionais em ambiente multicultural</li>
+                    <li data-translate="job3_duty3">Garantia da satisfação total dos passageiros</li>
                 </ul>
             </div>
         </section>
 
         <section id="habilidades">
-            <h2>Habilidades</h2>
+            <h2 data-translate="skills_title">Habilidades</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>Atendimento & Serviço</h3>
+                    <h3 data-translate="skill_cat1">Atendimento & Serviço</h3>
                     <ul>
-                        <li>Atendimento ao Cliente de Excelência</li>
-                        <li>Serviço de Sala & Restaurante</li>
-                        <li>Gestão de Pedidos em Sistema</li>
-                        <li>Conhecimento em Cardápios</li>
+                        <li data-translate="skill1_1">Atendimento ao Cliente de Excelência</li>
+                        <li data-translate="skill1_2">Serviço de Sala & Restaurante</li>
+                        <li data-translate="skill1_3">Gestão de Pedidos em Sistema</li>
+                        <li data-translate="skill1_4">Conhecimento em Cardápios</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3>Idiomas & Tecnologia</h3>
+                    <h3 data-translate="skill_cat2">Idiomas & Tecnologia</h3>
                     <ul>
-                        <li>Inglês Intermediário/Avançado</li>
-                        <li>Português Nativo</li>
-                        <li>Pacote Office Completo</li>
-                        <li>Sistemas de Restaurante</li>
+                        <li data-translate="skill2_1">Inglês Intermediário/Avançado</li>
+                        <li data-translate="skill2_2">Português Nativo</li>
+                        <li data-translate="skill2_3">Pacote Office Completo</li>
+                        <li data-translate="skill2_4">Sistemas de Restaurante</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3>Competências Pessoais</h3>
+                    <h3 data-translate="skill_cat3">Competências Pessoais</h3>
                     <ul>
-                        <li>Organização e Limpeza</li>
-                        <li>Trabalho sob Pressão</li>
-                        <li>Proatividade</li>
-                        <li>Comunicação Eficaz</li>
+                        <li data-translate="skill3_1">Organização e Limpeza</li>
+                        <li data-translate="skill3_2">Trabalho sob Pressão</li>
+                        <li data-translate="skill3_3">Proatividade</li>
+                        <li data-translate="skill3_4">Comunicação Eficaz</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="galeria">
-            <h2>Galeria de Trabalho</h2>
+            <h2 data-translate="gallery_title">Galeria de Trabalho</h2>
             <div class="gallery">
                 <img src="imagens/hotel_cabreuva.jpg" alt="Hotel Cabreúva Resort" class="gallery-img">
-                
                 <img src="imagens/heineken_equipe.jpg" alt="Ambiente de Restaurante" class="gallery-img">
-                
                 <img src="imagens/eu_heineken.jpg" alt="Eu na Heineken" class="gallery-img">
             </div>
         </section>
 
         <section id="formacao">
-            <h2>Formação & Certificações</h2>
+            <h2 data-translate="edu_title">Formação & Certificações</h2>
             <div class="education-item">
-                <h3>Curso de Garçom e Cumim</h3>
+                <h3 data-translate="edu1_title">Curso de Garçom e Cumim</h3>
                 <p class="company">Senac Francisco Matarazzo</p>
             </div>
             <div class="education-item">
-                <h3>Agente de Aeroporto</h3>
+                <h3 data-translate="edu2_title">Agente de Aeroporto</h3>
                 <p class="company">Escola de Aviação Civil Flight Brasil</p>
             </div>
             <div class="education-item">
-                <h3>Inglês Avançado</h3>
+                <h3 data-translate="edu3_title">Inglês Avançado</h3>
                 <p class="company">USA International Cursos (2004-2007)</p>
             </div>
             <div class="education-item">
-                <h3>2º Grau Completo</h3>
+                <h3 data-translate="edu4_title">2º Grau Completo</h3>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2026 Marcos Roberto - Todos os direitos reservados</p>
+        <p>&copy; 2026 Marcos Roberto - <span data-translate="footer">Todos os direitos reservados</span></p>
     </footer>
 
     <script>
-        // Efeito de rolagem suave para os links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // DICIONÁRIO DE TRADUÇÕES
+        const translations = {
+            pt: {
+                "subtitle": "Profissional em Hotelaria & Serviço de Restaurante",
+                "location": "São Paulo, Brasil",
+                "about_title": "Sobre Mim",
+                "about_p1": "Profissional com vasta experiência em hotelaria, restaurantes e serviços de alimentação, incluindo passagem internacional pela Royal Caribbean. Destaque para o atendimento ao cliente de excelência, com habilidade para identificar necessidades e superar expectativas.",
+                "about_p2": "Inglês intermediário/avançado com competência para atuar em ambientes multiculturais e de alto padrão. Comprometido com a organização, higiene e a criação de experiências memoráveis para hóspedes e clientes.",
+                "exp_title": "Experiência Profissional",
+                "role_label": "Cargo:",
+                "job1_date": "Setembro 2016 - Presente (Freelancer)",
+                "job1_role": "Garçom de Eventos e ajudante de cozinha",
+                "job1_duty1": "Atendimento especializado em eventos corporativos, buffets e confraternizações",
+                "job1_duty2": "Identificação das preferências dos hóspedes para serviço personalizado",
+                "job1_duty3": "Apresentação de cardápios de alimentos e bebidas",
+                "job2_date": "Novembro 2014 - Abril 2016",
+                "job2_role": "Garçom e Host Bilíngue",
+                "job2_duty1": "Preparação da casa para abertura e higienização de utensílios",
+                "job2_duty2": "Lançamento de pedidos no sistema e conferência com cozinha/bar",
+                "job2_duty3": "Como Host Bilíngue: elevação de 100% no faturamento",
+                "job2_duty3b": "da empresa",
+                "job3_date": "Fevereiro 2008 - Outubro 2008",
+                "job3_role": "Mess Attendant (Comissário de Mesa)",
+                "job3_duty1": "Organização e preparo do salão do restaurante (Mise en Place)",
+                "job3_duty2": "Atendimento a hóspedes internacionais em ambiente multicultural",
+                "job3_duty3": "Garantia da satisfação total dos passageiros",
+                "skills_title": "Habilidades",
+                "skill_cat1": "Atendimento & Serviço",
+                "skill1_1": "Atendimento ao Cliente de Excelência",
+                "skill1_2": "Serviço de Sala & Restaurante",
+                "skill1_3": "Gestão de Pedidos em Sistema",
+                "skill1_4": "Conhecimento em Cardápios",
+                "skill_cat2": "Idiomas & Tecnologia",
+                "skill2_1": "Inglês Intermediário/Avançado",
+                "skill2_2": "Português Nativo",
+                "skill2_3": "Pacote Office Completo",
+                "skill2_4": "Sistemas de Restaurante",
+                "skill_cat3": "Competências Pessoais",
+                "skill3_1": "Organização e Limpeza",
+                "skill3_2": "Trabalho sob Pressão",
+                "skill3_3": "Proatividade",
+                "skill3_4": "Comunicação Eficaz",
+                "gallery_title": "Galeria de Trabalho",
+                "edu_title": "Formação & Certificações",
+                "edu1_title": "Curso de Garçom e Cumim",
+                "edu2_title": "Agente de Aeroporto",
+                "edu3_title": "Inglês Avançado",
+                "edu4_title": "2º Grau Completo",
+                "footer": "Todos os direitos reservados"
+            },
+            en: {
+                "subtitle": "Hospitality & Restaurant Service Professional",
+                "location": "São Paulo, Brazil",
+                "about_title": "About Me",
+                "about_p1": "Professional with extensive experience in hospitality, restaurants, and food services, including international experience with Royal Caribbean. Highlight for excellence in customer service, with the ability to identify needs and exceed expectations.",
+                "about_p2": "Intermediate/Advanced English with competence to work in multicultural and high-standard environments. Committed to organization, hygiene, and creating memorable experiences for guests and clients.",
+                "exp_title": "Professional Experience",
+                "role_label": "Role:",
+                "job1_date": "September 2016 - Present (Freelancer)",
+                "job1_role": "Event Waiter and Kitchen Assistant",
+                "job1_duty1": "Specialized service at corporate events, buffets, and gatherings",
+                "job1_duty2": "Identifying guest preferences for personalized service",
+                "job1_duty3": "Presenting food and beverage menus",
+                "job2_date": "November 2014 - April 2016",
+                "job2_role": "Bilingual Waiter and Host",
+                "job2_duty1": "Preparing the venue for opening and sanitizing utensils",
+                "job2_duty2": "Entering orders into the system and checking with kitchen/bar",
+                "job2_duty3": "As Bilingual Host: 100% increase in revenue",
+                "job2_duty3b": "for the company",
+                "job3_date": "February 2008 - October 2008",
+                "job3_role": "Mess Attendant",
+                "job3_duty1": "Organization and preparation of the restaurant dining room (Mise en Place)",
+                "job3_duty2": "Service to international guests in a multicultural environment",
+                "job3_duty3": "Ensuring total passenger satisfaction",
+                "skills_title": "Skills",
+                "skill_cat1": "Service & Guest Relations",
+                "skill1_1": "Excellence in Customer Service",
+                "skill1_2": "Dining Room & Restaurant Service",
+                "skill1_3": "Order Management Systems",
+                "skill1_4": "Menu Knowledge",
+                "skill_cat2": "Languages & Technology",
+                "skill2_1": "Intermediate/Advanced English",
+                "skill2_2": "Native Portuguese",
+                "skill2_3": "Complete Office Suite",
+                "skill2_4": "Restaurant POS Systems",
+                "skill_cat3": "Personal Competencies",
+                "skill3_1": "Organization and Cleanliness",
+                "skill3_2": "Work Under Pressure",
+                "skill3_3": "Proactivity",
+                "skill3_4": "Effective Communication",
+                "gallery_title": "Work Gallery",
+                "edu_title": "Education & Certifications",
+                "edu1_title": "Waiter and Commis Course",
+                "edu2_title": "Airport Agent",
+                "edu3_title": "Advanced English",
+                "edu4_title": "High School Diploma",
+                "footer": "All rights reserved"
+            },
+            es: {
+                "subtitle": "Profesional en Hotelería y Servicio de Restaurante",
+                "location": "São Paulo, Brasil",
+                "about_title": "Sobre Mí",
+                "about_p1": "Profesional con amplia experiencia en hotelería, restaurantes y servicios de alimentación, incluida una experiencia internacional en Royal Caribbean. Destaco por la excelencia en la atención al cliente, con habilidad para identificar necesidades y superar expectativas.",
+                "about_p2": "Inglés intermedio/avanzado con competencia para actuar en entornos multiculturales y de alto nivel. Comprometido con la organización, la higiene y la creación de experiencias memorables para huéspedes y clientes.",
+                "exp_title": "Experiencia Profesional",
+                "role_label": "Cargo:",
+                "job1_date": "Septiembre 2016 - Presente (Freelancer)",
+                "job1_role": "Camarero de Eventos y Ayudante de Cocina",
+                "job1_duty1": "Atención especializada en eventos corporativos, buffets y celebraciones",
+                "job1_duty2": "Identificación de las preferencias de los huéspedes para un servicio personalizado",
+                "job1_duty3": "Presentación de menús de alimentos y bebidas",
+                "job2_date": "Noviembre 2014 - Abril 2016",
+                "job2_role": "Camarero y Anfitrión Bilingüe",
+                "job2_duty1": "Preparación del local para la apertura e higienización de utensilios",
+                "job2_duty2": "Introducción de pedidos en el sistema y verificación con cocina/bar",
+                "job2_duty3": "Como Anfitrión Bilingüe: aumento del 100% en la facturación",
+                "job2_duty3b": "de la empresa",
+                "job3_date": "Febrero 2008 - Octubre 2008",
+                "job3_role": "Auxiliar de Comedor",
+                "job3_duty1": "Organización y preparación del salón del restaurante (Mise en Place)",
+                "job3_duty2": "Atención a huéspedes internacionales en un entorno multicultural",
+                "job3_duty3": "Garantía de la satisfacción total de los pasajeros",
+                "skills_title": "Habilidades",
+                "skill_cat1": "Atención y Servicio",
+                "skill1_1": "Atención al Cliente de Excelencia",
+                "skill1_2": "Servicio de Sala y Restaurante",
+                "skill1_3": "Gestión de Pedidos en Sistema",
+                "skill1_4": "Conocimiento de Menús",
+                "skill_cat2": "Idiomas y Tecnología",
+                "skill2_1": "Inglés Intermedio/Avanzado",
+                "skill2_2": "Portugués Nativo",
+                "skill2_3": "Paquete Office Completo",
+                "skill2_4": "Sistemas de Restaurante",
+                "skill_cat3": "Competencias Personales",
+                "skill3_1": "Organización y Limpieza",
+                "skill3_2": "Trabajo Bajo Presión",
+                "skill3_3": "Proactividad",
+                "skill3_4": "Comunicación Eficaz",
+                "gallery_title": "Galería de Trabajo",
+                "edu_title": "Formación y Certificaciones",
+                "edu1_title": "Curso de Camarero y Commis",
+                "edu2_title": "Agente de Aeropuerto",
+                "edu3_title": "Inglés Avanzado",
+                "edu4_title": "Diploma de Escuela Secundaria",
+                "footer": "Todos los derechos reservados"
+            }
+        };
+
+        function changeLang(lang) {
+            // Atualiza os botões ativos
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Traduz os elementos
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
             });
-        });
+        }
 
         // Animação simples ao scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
-                ';
                 }
             });
         }, observerOptions);
 
-        // Aplicar animação às seções
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(20px)';
